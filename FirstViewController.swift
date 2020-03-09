@@ -49,7 +49,9 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
                 for activity in activities{
                     if(text.isEqual(activity)){
                         print("already entered")
+                        self.alreadyEnteredAlert()
                         return
+                        
                         
                     }
                 }
@@ -63,6 +65,16 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
+    }
+    func alreadyEnteredAlert(){
+        let alert = UIAlertController(title: "Activity already entered", message: "This activity already exists in the selector", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Okay",
+                                      style: UIAlertAction.Style.destructive,
+                                      handler: {(_: UIAlertAction!) in
+                                        //Sign out action
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
