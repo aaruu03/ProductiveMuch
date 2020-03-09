@@ -70,7 +70,7 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
         let alert = UIAlertController(title: "Activity already entered", message: "This activity already exists in the selector", preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Okay",
-                                      style: UIAlertAction.Style.destructive,
+                                      style: UIAlertAction.Style.default,
                                       handler: {(_: UIAlertAction!) in
                                         //Sign out action
         }))
