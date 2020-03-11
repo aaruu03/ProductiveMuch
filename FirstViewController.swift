@@ -47,7 +47,7 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
                 // operations
                 print("Text==>" + text)
                 for activity in activities{
-                    if(text.isEqual(activity)){
+                    if(text.caseInsensitiveCompare(activity) == .orderedSame){
                         print("already entered")
                         self.alreadyEnteredAlert()
                         return
