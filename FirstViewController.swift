@@ -90,20 +90,62 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    @IBAction func DeleteActButton(_ sender: UIButton) {
-        showAlertWithPickerView()
+    func activityDeletedAlert(){
+        let alert = UIAlertController(title: "Activity Deleted", message: "The activity has been removed from the list!", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Okay",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+                                        //Sign out action
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
-    
-    func showAlertWithPickerView(){
-       let alertController = UIAlertController(title: "Delete activity", message: nil, preferredStyle: .alert)
-        
-        let deleteAction = UIAlertAction(title:"Delete", style: .destructive){
-            (_) in }
+    func activityNotFoundAlert(){
+        let alert = UIAlertController(title: "Activity not found", message: "We were unable to find the activity", preferredStyle: UIAlertController.Style.alert)
+        let tryAction = UIAlertAction(title: "Try Again", style: .default){ (_) in
+            self.showAlertWithDTextfield()
+        }
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
         
-        alertController.addAction(cancelAction)
-        alertController.addAction(deleteAction)
-        self.present(alertController, animated: true, completion: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(tryAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    @IBAction func DeleteActButton(_ sender: UIButton) {
+        showAlertWithDTextfield()
+    }
+    
+    func showAlertWithDTextfield(){
+       let alertController = UIAlertController(title: "Delete activity", message: nil, preferredStyle: .alert)
+              let confirmAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+                  if let txtField = alertController.textFields?.first, let text = txtField.text {
+                      // operations
+                      print("Text==>" + text)
+                      for activity in activities{
+                          if(text.caseInsensitiveCompare(activity) == .orderedSame){
+                              print("found it!")
+                            //delete function
+                            activities.removeAll { $0 == text }
+                            print(activities)
+                            print("removed")
+                            //alert thats it been deleted
+                            self.activityDeletedAlert()
+                              return
+                          }
+                          
+                      }
+                    //not found please try again alert
+                    self.activityNotFoundAlert()
+                  }
+              }
+              let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+              alertController.addTextField { (textField) in
+                  textField.placeholder = "Activity"
+              }
+              alertController.addAction(confirmAction)
+              alertController.addAction(cancelAction)
+              self.present(alertController, animated: true, completion: nil)
     }
         
     
