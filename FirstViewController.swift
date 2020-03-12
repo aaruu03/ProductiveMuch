@@ -9,13 +9,12 @@
 import UIKit
 
 class FirstViewController: UIViewController,  UITextFieldDelegate{
-  
 
     @IBOutlet weak var editAct: UITextField!
     
 
     var savedText: String!
-    
+    var pickerView = UIPickerView()
     
    //add userinput to pickerview
    func textFieldShouldReturn(_ editAct: UITextField) -> Bool {
@@ -51,8 +50,13 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
                         print("already entered")
                         self.alreadyEnteredAlert()
                         return
-                        
-                        
+                    }
+                    for char in text{
+                        if(!char.isLetter){
+                            print("oop")
+                            self.invalidInputAlert()
+                            return
+                        }
                     }
                 }
                 activities.append(text)
@@ -76,6 +80,32 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    func invalidInputAlert(){
+        let alert = UIAlertController(title: "Invalid Input", message: "Please only enter lowercase or capital letters", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Okay",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+                                        //Sign out action
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    @IBAction func DeleteActButton(_ sender: UIButton) {
+        showAlertWithPickerView()
+    }
+    
+    func showAlertWithPickerView(){
+       let alertController = UIAlertController(title: "Delete activity", message: nil, preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title:"Delete", style: .destructive){
+            (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
