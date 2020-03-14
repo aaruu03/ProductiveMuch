@@ -38,6 +38,16 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
     @IBAction func addActButton(_ sender: Any) {
         showAlertWithTextField()
     }
+    func activitySubmittedAlert(){
+        let alert = UIAlertController(title: "Response recorded", message: " Your activity has been added", preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Okay",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+                                        //Sign out action
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func showAlertWithTextField() {
         let alertController = UIAlertController(title: "Add new activity", message: nil, preferredStyle: .alert)
@@ -60,6 +70,8 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
                     }
                 }
                 activities.append(text)
+                self.activitySubmittedAlert()
+                
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }

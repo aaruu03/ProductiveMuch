@@ -26,6 +26,18 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBAction func submitButton(_ sender: UIButton) {
         print("activity is " + finactivities + " and time is " + finhours + " hours and " + finminutes + " minutes and you were " + finproductivity)
+        logSubmittedAlert()
+    }
+    func logSubmittedAlert(){
+        let alert = UIAlertController(title: "Response recorded", message: "Activity: " + finactivities + " duration: " + finhours +
+            " hours and " + finminutes + " minutes was " + finproductivity, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Okay",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+                                        //Sign out action
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func indexChanged(_ sender: Any) {
