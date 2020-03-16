@@ -70,6 +70,7 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
                     }
                 }
                 activities.append(text)
+                sortedActivities = activities.sorted()
                 self.activitySubmittedAlert()
                 
             }
