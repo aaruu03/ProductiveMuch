@@ -5,7 +5,6 @@
 //  Created by Aarya Gupta on 2/22/20.
 //  Copyright © 2020 Aarya Gupta. All rights reserved.
 //
-
 import UIKit
 
 var activities = ["running", "walking", "yoga"]
@@ -15,6 +14,7 @@ var finhours : String = "0"
 var finminutes : String = "0"
 var finactivities: String = activities[0]
 var finproductivity: String = "Productive"
+var findate =  "0"
 
 class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -24,12 +24,22 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBOutlet weak var productiveSwitch: UISegmentedControl!
     
+    
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBAction func datePickerGetDate(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateStyle = DateFormatter.Style.short
+         let strDate = dateFormatter.string(from: datePicker.date)
+        print(strDate)
+    }
+    
     @IBAction func submitButton(_ sender: UIButton) {
-        print("activity is " + finactivities + " and time is " + finhours + " hours and " + finminutes + " minutes and you were " + finproductivity)
+        print("On " + findate + " activity is " + finactivities + " and time is " + finhours + " hours and " + finminutes + " minutes and you were " + finproductivity)
         logSubmittedAlert()
     }
     func logSubmittedAlert(){
-        let alert = UIAlertController(title: "Response recorded", message: "Activity: " + finactivities + " duration: " + finhours +
+        let alert = UIAlertController(title: "Response recorded", message: "Date: " + findate + " Activity: " + finactivities + ", duration: " + finhours +
             " hours and " + finminutes + " minutes was " + finproductivity, preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Okay",
@@ -129,6 +139,12 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         addAct.dataSource = self
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        print(dateFormatter.string(from: date))
+        findate = dateFormatter.string(from: date)
+        print(findate)
     }
 //
    /* var finhours : String = "0"
@@ -138,4 +154,3 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 */
 
 }
-
