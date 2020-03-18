@@ -140,8 +140,10 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
                               print("found it!")
                             //delete function
                             activities.removeAll { $0 == text }
+                            sortedActivities = activities.sorted()
                             print(activities)
                             print("removed")
+                           
                             //alert thats it been deleted
                             self.activityDeletedAlert()
                               return
