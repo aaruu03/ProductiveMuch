@@ -6,17 +6,20 @@
 //  Copyright © 2020 Aarya Gupta. All rights reserved.
 //
 import UIKit
+import Firebase
 
 var activities = ["running", "walking", "yoga"]
 var sortedActivities = activities.sorted()
 var duration = ["0","1","2","3", "4", "5","6","7","8","9","10","11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
+//var duration = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 var minutes = ["0", "1","2","3", "4", "5","6","7","8","9","10","11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23","24", "25","26", "27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
 var finhours : String = "0"
+//var finhours : Int = 0
 var finminutes : String = "0"
 var finactivities: String = activities[0]
 var finproductivity: String = "Productive"
 var findate =  "0"
-
+//let db = Firestore.firestore()
 class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var addAct: UIPickerView!
@@ -32,11 +35,12 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
         dateFormatter.dateStyle = DateFormatter.Style.short
          let strDate = dateFormatter.string(from: datePicker.date)
-        print(strDate)
+        print(strDate + "yayay")
     }
     
     @IBAction func submitButton(_ sender: UIButton) {
         print("On " + findate + " activity is " + finactivities + " and time is " + finhours + " hours and " + finminutes + " minutes and you were " + finproductivity)
+        db.collection(findate).addDocument(data: ["Activity" : finactivities, "Productivity" : finproductivity, "Hours" : finhours, "Minutes" : finminutes, "Date" : findate])
         logSubmittedAlert()
     }
     func logSubmittedAlert(){
@@ -140,18 +144,19 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         addAct.dataSource = self
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
-        let date = Date()
+       /* let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        print(dateFormatter.string(from: date))
+        dateFormatter.dateFormat = "MM-dd-yyyy"
         findate = dateFormatter.string(from: date)
-        print(findate)
+        print(findate) */
+
+        
+        //database
+        //let db = Firestore.firestore()
+      //  db.collection("exercise").addDocument(data: ["Activity" : "Skiing", "Productivity" : "Productive", "Hours" : 2, "Minutes" : 0, "Date" : findate])
+   
+        
+
     }
-//
-   /* var finhours : String = "0"
-    var finminutes : String = "0"
-    var finactivities: String = activities[0]
-    var finproductivity: String = "Productive"
-*/
 
 }

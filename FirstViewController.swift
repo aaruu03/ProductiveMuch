@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Firebase
 
+let db = Firestore.firestore()
 class FirstViewController: UIViewController,  UITextFieldDelegate{
 
     @IBOutlet weak var editAct: UITextField!
@@ -170,6 +172,12 @@ class FirstViewController: UIViewController,  UITextFieldDelegate{
         print("activities")
        //showAlertWithTextField()
         editAct.delegate = self
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        findate = dateFormatter.string(from: date)
+        print(findate)
     }
    /* override func viewDidAppear(_ animated: Bool) {
         //showAlertWithTextField()
