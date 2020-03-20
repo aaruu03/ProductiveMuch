@@ -5,7 +5,6 @@
 //  Created by Aarya Gupta on 3/3/20.
 //  Copyright © 2020 Aarya Gupta. All rights reserved.
 //
-
 import UIKit
 import Firebase
 
@@ -33,35 +32,15 @@ class TableViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     
     
-    @IBAction func getCount(_ sender: UIButton) {
-        print(counter)
-        print(act)
-        print(hor)
-        print(min)
-        print(pro)
-    }
     
-    @IBAction func getDatabaseData(_ sender: UIButton) {
-        print("1")
-        db.collection(findate).getDocuments { (snapshot, error) in
-            if error == nil && snapshot != nil{ print("2")
-                for document in snapshot!.documents{
-                    print("3")
-                    counter = counter + 1
-                    let documentData = document.data()
-                    print (documentData)
-                }
-            }
-        }
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return counter
+        return (id*4)
     }
     
 
 func getTheValue(){
-            for m in 1...(counter/4){
+            for m in 1...(id){
             db.collection(findate).whereField("ID", isEqualTo: k).getDocuments { (snapshot, error) in
                 if error == nil && snapshot != nil{
                     print("IT DO THE WORK")
@@ -103,7 +82,7 @@ func getTheValue(){
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
        
-        let seconds = 1.00
+        let seconds = 2.00
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             // Put your code which should be executed with a delay here
             
@@ -144,6 +123,9 @@ func getTheValue(){
                 self.i = 1
                 self.y+=1
                 print("UPDATES!!", (String)(self.y))
+                if(self.y > id){
+                    return
+                }
                 //self.getTheValue()
             }
         }

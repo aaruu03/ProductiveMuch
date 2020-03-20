@@ -20,6 +20,7 @@ var finactivities: String = activities[0]
 var finproductivity: String = "Productive"
 var findate =  "0"
 //let db = Firestore.firestore()
+var id = 0
 class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var addAct: UIPickerView!
@@ -39,8 +40,15 @@ class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBAction func submitButton(_ sender: UIButton) {
+        if(id == 0){
+            id = 1
+        }
+        else{
+            id+=1
+        }
         print("On " + findate + " activity is " + finactivities + " and time is " + finhours + " hours and " + finminutes + " minutes and you were " + finproductivity)
-        db.collection(findate).addDocument(data: ["Activity" : finactivities, "Productivity" : finproductivity, "Hours" : finhours, "Minutes" : finminutes, "Date" : findate])
+        db.collection(findate).addDocument(data: ["Activity" : finactivities, "Productivity" : finproductivity, "Hours" : finhours, "Minutes" : finminutes, "Date" : findate, "ID" : id])
+        //id+=1
         logSubmittedAlert()
     }
     func logSubmittedAlert(){
